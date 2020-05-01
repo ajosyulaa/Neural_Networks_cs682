@@ -1,0 +1,2200 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{PyTorch}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{What's this PyTorch
+business?}\label{whats-this-pytorch-business}
+
+You've written a lot of code in this assignment to provide a whole host
+of neural network functionality. Dropout, Batch Norm, and 2D
+convolutions are some of the workhorses of deep learning in computer
+vision. You've also worked hard to make your code efficient and
+vectorized.
+
+For the last part of this assignment, though, we're going to leave
+behind your beautiful codebase and instead migrate to one of two popular
+deep learning frameworks: in this instance, PyTorch (or TensorFlow, if
+you switch over to that notebook).
+
+\subsubsection{What is PyTorch?}\label{what-is-pytorch}
+
+PyTorch is a system for executing dynamic computational graphs over
+Tensor objects that behave similarly as numpy ndarray. It comes with a
+powerful automatic differentiation engine that removes the need for
+manual back-propagation.
+
+\subsubsection{Why?}\label{why}
+
+\begin{itemize}
+\tightlist
+\item
+  Our code will now run on GPUs! Much faster training. When using a
+  framework like PyTorch or TensorFlow you can harness the power of the
+  GPU for your own custom neural network architectures without having to
+  write CUDA code directly (which is beyond the scope of this class).
+\item
+  We want you to be ready to use one of these frameworks for your
+  project so you can experiment more efficiently than if you were
+  writing every feature you want to use by hand.
+\item
+  We want you to stand on the shoulders of giants! TensorFlow and
+  PyTorch are both excellent frameworks that will make your lives a lot
+  easier, and now that you understand their guts, you are free to use
+  them :)
+\item
+  We want you to be exposed to the sort of deep learning code you might
+  run into in academia or industry.
+\end{itemize}
+
+\subsubsection{PyTorch versions}\label{pytorch-versions}
+
+This notebook assumes that you are using \textbf{PyTorch version 0.4}.
+Prior to this version, Tensors had to be wrapped in Variable objects to
+be used in autograd; however Variables have now been deprecated. In
+addition 0.4 also separates a Tensor's datatype from its device, and
+uses numpy-style factories for constructing Tensors rather than directly
+invoking Tensor constructors.
+
+    \subsection{How will I learn PyTorch?}\label{how-will-i-learn-pytorch}
+
+Justin Johnson has made an excellent
+\href{https://github.com/jcjohnson/pytorch-examples}{tutorial} for
+PyTorch.
+
+You can also find the detailed
+\href{http://pytorch.org/docs/stable/index.html}{API doc} here. If you
+have other questions that are not addressed by the API docs, the
+\href{https://discuss.pytorch.org/}{PyTorch forum} is a much better
+place to ask than StackOverflow.
+
+\section{Table of Contents}\label{table-of-contents}
+
+This assignment has 5 parts. You will learn PyTorch on different levels
+of abstractions, which will help you understand it better and prepare
+you for the final project.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Preparation: we will use CIFAR-10 dataset.
+\item
+  Barebones PyTorch: we will work directly with the lowest-level PyTorch
+  Tensors.
+\item
+  PyTorch Module API: we will use \texttt{nn.Module} to define arbitrary
+  neural network architecture.
+\item
+  PyTorch Sequential API: we will use \texttt{nn.Sequential} to define a
+  linear feed-forward network very conveniently.
+\item
+  CIFAR-10 open-ended challenge: please implement your own network to
+  get as high accuracy as possible on CIFAR-10. You can experiment with
+  any layer, optimizer, hyperparameters or other advanced features.
+\end{enumerate}
+
+Here is a table of comparison:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+API & Flexibility & Convenience\tabularnewline
+\midrule
+\endhead
+Barebone & High & Low\tabularnewline
+\texttt{nn.Module} & High & Medium\tabularnewline
+\texttt{nn.Sequential} & Low & High\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \section{Part I. Preparation}\label{part-i.-preparation}
+
+First, we load the CIFAR-10 dataset. This might take a couple minutes
+the first time you do it, but the files should stay cached after that.
+
+In previous parts of the assignment we had to write our own code to
+download the CIFAR-10 dataset, preprocess it, and iterate through it in
+minibatches; PyTorch provides convenient tools to automate this process
+for us.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{torch}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn} \PY{k}{as} \PY{n+nn}{nn}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{optim} \PY{k}{as} \PY{n+nn}{optim}
+        \PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{data} \PY{k}{import} \PY{n}{DataLoader}
+        \PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{data} \PY{k}{import} \PY{n}{sampler}
+        
+        \PY{k+kn}{import} \PY{n+nn}{torchvision}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{as} \PY{n+nn}{dset}
+        \PY{k+kn}{import} \PY{n+nn}{torchvision}\PY{n+nn}{.}\PY{n+nn}{transforms} \PY{k}{as} \PY{n+nn}{T}
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{NUM\PYZus{}TRAIN} \PY{o}{=} \PY{l+m+mi}{49000}
+        
+        \PY{c+c1}{\PYZsh{} The torchvision.transforms package provides tools for preprocessing data}
+        \PY{c+c1}{\PYZsh{} and for performing data augmentation; here we set up a transform to}
+        \PY{c+c1}{\PYZsh{} preprocess the data by subtracting the mean RGB value and dividing by the}
+        \PY{c+c1}{\PYZsh{} standard deviation of each RGB value; we\PYZsq{}ve hardcoded the mean and std.}
+        \PY{n}{transform} \PY{o}{=} \PY{n}{T}\PY{o}{.}\PY{n}{Compose}\PY{p}{(}\PY{p}{[}
+                        \PY{n}{T}\PY{o}{.}\PY{n}{ToTensor}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{T}\PY{o}{.}\PY{n}{Normalize}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{0.4914}\PY{p}{,} \PY{l+m+mf}{0.4822}\PY{p}{,} \PY{l+m+mf}{0.4465}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mf}{0.2023}\PY{p}{,} \PY{l+m+mf}{0.1994}\PY{p}{,} \PY{l+m+mf}{0.2010}\PY{p}{)}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} We set up a Dataset object for each split (train / val / test); Datasets load}
+        \PY{c+c1}{\PYZsh{} training examples one at a time, so we wrap each Dataset in a DataLoader which}
+        \PY{c+c1}{\PYZsh{} iterates through the Dataset and forms minibatches. We divide the CIFAR\PYZhy{}10}
+        \PY{c+c1}{\PYZsh{} training set into train and val sets by passing a Sampler object to the}
+        \PY{c+c1}{\PYZsh{} DataLoader telling how it should sample from the underlying Dataset.}
+        \PY{n}{cifar10\PYZus{}train} \PY{o}{=} \PY{n}{dset}\PY{o}{.}\PY{n}{CIFAR10}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./cs682/datasets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{train}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{download}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                                     \PY{n}{transform}\PY{o}{=}\PY{n}{transform}\PY{p}{)}
+        \PY{n}{loader\PYZus{}train} \PY{o}{=} \PY{n}{DataLoader}\PY{p}{(}\PY{n}{cifar10\PYZus{}train}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{,} 
+                                  \PY{n}{sampler}\PY{o}{=}\PY{n}{sampler}\PY{o}{.}\PY{n}{SubsetRandomSampler}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{NUM\PYZus{}TRAIN}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{cifar10\PYZus{}val} \PY{o}{=} \PY{n}{dset}\PY{o}{.}\PY{n}{CIFAR10}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./cs682/datasets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{train}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{download}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                                   \PY{n}{transform}\PY{o}{=}\PY{n}{transform}\PY{p}{)}
+        \PY{n}{loader\PYZus{}val} \PY{o}{=} \PY{n}{DataLoader}\PY{p}{(}\PY{n}{cifar10\PYZus{}val}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{,} 
+                                \PY{n}{sampler}\PY{o}{=}\PY{n}{sampler}\PY{o}{.}\PY{n}{SubsetRandomSampler}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{NUM\PYZus{}TRAIN}\PY{p}{,} \PY{l+m+mi}{50000}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{cifar10\PYZus{}test} \PY{o}{=} \PY{n}{dset}\PY{o}{.}\PY{n}{CIFAR10}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./cs682/datasets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{train}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{download}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} 
+                                    \PY{n}{transform}\PY{o}{=}\PY{n}{transform}\PY{p}{)}
+        \PY{n}{loader\PYZus{}test} \PY{o}{=} \PY{n}{DataLoader}\PY{p}{(}\PY{n}{cifar10\PYZus{}test}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+
+    \end{Verbatim}
+
+    You have an option to \textbf{use GPU by setting the flag to True
+below}. It is not necessary to use GPU for this assignment. Note that if
+your computer does not have CUDA enabled,
+\texttt{torch.cuda.is\_available()} will return False and this notebook
+will fallback to CPU mode.
+
+The global variables \texttt{dtype} and \texttt{device} will control the
+data types throughout this assignment.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{USE\PYZus{}GPU} \PY{o}{=} \PY{k+kc}{True}
+        
+        \PY{n}{dtype} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{float32} \PY{c+c1}{\PYZsh{} we will be using float throughout this tutorial}
+        
+        \PY{k}{if} \PY{n}{USE\PYZus{}GPU} \PY{o+ow}{and} \PY{n}{torch}\PY{o}{.}\PY{n}{cuda}\PY{o}{.}\PY{n}{is\PYZus{}available}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{device} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{device}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cuda}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n}{device} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{device}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cpu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Constant to control how frequently we print train loss}
+        \PY{n}{print\PYZus{}every} \PY{o}{=} \PY{l+m+mi}{100}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{using device:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{device}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+using device: cuda
+
+    \end{Verbatim}
+
+    \section{Part II. Barebones PyTorch}\label{part-ii.-barebones-pytorch}
+
+PyTorch ships with high-level APIs to help us define model architectures
+conveniently, which we will cover in Part II of this tutorial. In this
+section, we will start with the barebone PyTorch elements to understand
+the autograd engine better. After this exercise, you will come to
+appreciate the high-level model API more.
+
+We will start with a simple fully-connected ReLU network with two hidden
+layers and no biases for CIFAR classification. This implementation
+computes the forward pass using operations on PyTorch Tensors, and uses
+PyTorch autograd to compute gradients. It is important that you
+understand every line, because you will write a harder version after the
+example.
+
+When we create a PyTorch Tensor with \texttt{requires\_grad=True}, then
+operations involving that Tensor will not just compute values; they will
+also build up a computational graph in the background, allowing us to
+easily backpropagate through the graph to compute gradients of some
+Tensors with respect to a downstream loss. Concretely if x is a Tensor
+with \texttt{x.requires\_grad\ ==\ True} then after backpropagation
+\texttt{x.grad} will be another Tensor holding the gradient of x with
+respect to the scalar loss at the end.
+
+    \subsubsection{PyTorch Tensors: Flatten
+Function}\label{pytorch-tensors-flatten-function}
+
+A PyTorch Tensor is conceptionally similar to a numpy array: it is an
+n-dimensional grid of numbers, and like numpy PyTorch provides many
+functions to efficiently operate on Tensors. As a simple example, we
+provide a \texttt{flatten} function below which reshapes image data for
+use in a fully-connected neural network.
+
+Recall that image data is typically stored in a Tensor of shape N x C x
+H x W, where:
+
+\begin{itemize}
+\tightlist
+\item
+  N is the number of datapoints
+\item
+  C is the number of channels
+\item
+  H is the height of the intermediate feature map in pixels
+\item
+  W is the height of the intermediate feature map in pixels
+\end{itemize}
+
+This is the right way to represent the data when we are doing something
+like a 2D convolution, that needs spatial understanding of where the
+intermediate features are relative to each other. When we use fully
+connected affine layers to process the image, however, we want each
+datapoint to be represented by a single vector -\/- it's no longer
+useful to segregate the different channels, rows, and columns of the
+data. So, we use a "flatten" operation to collapse the
+\texttt{C\ x\ H\ x\ W} values per representation into a single long
+vector. The flatten function below first reads in the N, C, H, and W
+values from a given batch of data, and then returns a "view" of that
+data. "View" is analogous to numpy's "reshape" method: it reshapes x's
+dimensions to be N x ??, where ?? is allowed to be anything (in this
+case, it will be C x H x W, but we don't need to specify that
+explicitly).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{n}{N} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{c+c1}{\PYZsh{} read in N, C, H, W}
+            \PY{k}{return} \PY{n}{x}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}  \PY{c+c1}{\PYZsh{} \PYZdq{}flatten\PYZdq{} the C * H * W values into a single vector per image}
+        
+        \PY{k}{def} \PY{n+nf}{test\PYZus{}flatten}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{)}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Before flattening: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{After flattening: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{test\PYZus{}flatten}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Before flattening:  tensor([[[[ 0,  1],
+          [ 2,  3],
+          [ 4,  5]]],
+
+
+        [[[ 6,  7],
+          [ 8,  9],
+          [10, 11]]]])
+After flattening:  tensor([[ 0,  1,  2,  3,  4,  5],
+        [ 6,  7,  8,  9, 10, 11]])
+
+    \end{Verbatim}
+
+    \subsubsection{Barebones PyTorch: Two-Layer
+Network}\label{barebones-pytorch-two-layer-network}
+
+Here we define a function \texttt{two\_layer\_fc} which performs the
+forward pass of a two-layer fully-connected ReLU network on a batch of
+image data. After defining the forward pass we check that it doesn't
+crash and that it produces outputs of the right shape by running zeros
+through the network.
+
+You don't have to write any code here, but it's important that you read
+and understand the implementation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn}\PY{n+nn}{.}\PY{n+nn}{functional} \PY{k}{as} \PY{n+nn}{F}  \PY{c+c1}{\PYZsh{} useful stateless functions}
+        
+        \PY{k}{def} \PY{n+nf}{two\PYZus{}layer\PYZus{}fc}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{params}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    A fully\PYZhy{}connected neural networks; the architecture is:}
+        \PY{l+s+sd}{    NN is fully connected \PYZhy{}\PYZgt{} ReLU \PYZhy{}\PYZgt{} fully connected layer.}
+        \PY{l+s+sd}{    Note that this function only defines the forward pass; }
+        \PY{l+s+sd}{    PyTorch will take care of the backward pass for us.}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    The input to the network will be a minibatch of data, of shape}
+        \PY{l+s+sd}{    (N, d1, ..., dM) where d1 * ... * dM = D. The hidden layer will have H units,}
+        \PY{l+s+sd}{    and the output layer will produce scores for C classes.}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Inputs:}
+        \PY{l+s+sd}{    \PYZhy{} x: A PyTorch Tensor of shape (N, d1, ..., dM) giving a minibatch of}
+        \PY{l+s+sd}{      input data.}
+        \PY{l+s+sd}{    \PYZhy{} params: A list [w1, w2] of PyTorch Tensors giving weights for the network;}
+        \PY{l+s+sd}{      w1 has shape (D, H) and w2 has shape (H, C).}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Returns:}
+        \PY{l+s+sd}{    \PYZhy{} scores: A PyTorch Tensor of shape (N, C) giving classification scores for}
+        \PY{l+s+sd}{      the input data x.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{c+c1}{\PYZsh{} first we flatten the image}
+            \PY{n}{x} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}  \PY{c+c1}{\PYZsh{} shape: [batch\PYZus{}size, C x H x W]}
+            
+            \PY{n}{w1}\PY{p}{,} \PY{n}{w2} \PY{o}{=} \PY{n}{params}
+            
+            \PY{c+c1}{\PYZsh{} Forward pass: compute predicted y using operations on Tensors. Since w1 and}
+            \PY{c+c1}{\PYZsh{} w2 have requires\PYZus{}grad=True, operations involving these Tensors will cause}
+            \PY{c+c1}{\PYZsh{} PyTorch to build a computational graph, allowing automatic computation of}
+            \PY{c+c1}{\PYZsh{} gradients. Since we are no longer implementing the backward pass by hand we}
+            \PY{c+c1}{\PYZsh{} don\PYZsq{}t need to keep references to intermediate values.}
+            \PY{c+c1}{\PYZsh{} you can also use `.clamp(min=0)`, equivalent to F.relu()}
+            \PY{n}{x} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{mm}\PY{p}{(}\PY{n}{w1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{mm}\PY{p}{(}\PY{n}{w2}\PY{p}{)}
+            \PY{k}{return} \PY{n}{x}
+            
+        
+        \PY{k}{def} \PY{n+nf}{two\PYZus{}layer\PYZus{}fc\PYZus{}test}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{hidden\PYZus{}layer\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{42}
+            \PY{n}{x} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{)}  \PY{c+c1}{\PYZsh{} minibatch size 64, feature dimension 50}
+            \PY{n}{w1} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{hidden\PYZus{}layer\PYZus{}size}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{)}
+            \PY{n}{w2} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{hidden\PYZus{}layer\PYZus{}size}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{)}
+            \PY{n}{scores} \PY{o}{=} \PY{n}{two\PYZus{}layer\PYZus{}fc}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{p}{[}\PY{n}{w1}\PY{p}{,} \PY{n}{w2}\PY{p}{]}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{scores}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} you should see [64, 10]}
+        
+        \PY{n}{two\PYZus{}layer\PYZus{}fc\PYZus{}test}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+torch.Size([64, 10])
+
+    \end{Verbatim}
+
+    \subsubsection{Barebones PyTorch: Three-Layer
+ConvNet}\label{barebones-pytorch-three-layer-convnet}
+
+Here you will complete the implementation of the function
+\texttt{three\_layer\_convnet}, which will perform the forward pass of a
+three-layer convolutional network. Like above, we can immediately test
+our implementation by passing zeros through the network. The network
+should have the following architecture:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A convolutional layer (with bias) with \texttt{channel\_1} filters,
+  each with shape \texttt{KW1\ x\ KH1}, and zero-padding of two
+\item
+  ReLU nonlinearity
+\item
+  A convolutional layer (with bias) with \texttt{channel\_2} filters,
+  each with shape \texttt{KW2\ x\ KH2}, and zero-padding of one
+\item
+  ReLU nonlinearity
+\item
+  Fully-connected layer with bias, producing scores for C classes.
+\end{enumerate}
+
+\textbf{HINT}: For convolutions:
+http://pytorch.org/docs/stable/nn.html\#torch.nn.functional.conv2d; pay
+attention to the shapes of convolutional filters!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{three\PYZus{}layer\PYZus{}convnet}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{params}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Performs the forward pass of a three\PYZhy{}layer convolutional network with the}
+        \PY{l+s+sd}{    architecture defined above.}
+        
+        \PY{l+s+sd}{    Inputs:}
+        \PY{l+s+sd}{    \PYZhy{} x: A PyTorch Tensor of shape (N, 3, H, W) giving a minibatch of images}
+        \PY{l+s+sd}{    \PYZhy{} params: A list of PyTorch Tensors giving the weights and biases for the}
+        \PY{l+s+sd}{      network; should contain the following:}
+        \PY{l+s+sd}{      \PYZhy{} conv\PYZus{}w1: PyTorch Tensor of shape (channel\PYZus{}1, 3, KH1, KW1) giving weights}
+        \PY{l+s+sd}{        for the first convolutional layer}
+        \PY{l+s+sd}{      \PYZhy{} conv\PYZus{}b1: PyTorch Tensor of shape (channel\PYZus{}1,) giving biases for the first}
+        \PY{l+s+sd}{        convolutional layer}
+        \PY{l+s+sd}{      \PYZhy{} conv\PYZus{}w2: PyTorch Tensor of shape (channel\PYZus{}2, channel\PYZus{}1, KH2, KW2) giving}
+        \PY{l+s+sd}{        weights for the second convolutional layer}
+        \PY{l+s+sd}{      \PYZhy{} conv\PYZus{}b2: PyTorch Tensor of shape (channel\PYZus{}2,) giving biases for the second}
+        \PY{l+s+sd}{        convolutional layer}
+        \PY{l+s+sd}{      \PYZhy{} fc\PYZus{}w: PyTorch Tensor giving weights for the fully\PYZhy{}connected layer. Can you}
+        \PY{l+s+sd}{        figure out what the shape should be?}
+        \PY{l+s+sd}{      \PYZhy{} fc\PYZus{}b: PyTorch Tensor giving biases for the fully\PYZhy{}connected layer. Can you}
+        \PY{l+s+sd}{        figure out what the shape should be?}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Returns:}
+        \PY{l+s+sd}{    \PYZhy{} scores: PyTorch Tensor of shape (N, C) giving classification scores for x}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{conv\PYZus{}w1}\PY{p}{,} \PY{n}{conv\PYZus{}b1}\PY{p}{,} \PY{n}{conv\PYZus{}w2}\PY{p}{,} \PY{n}{conv\PYZus{}b2}\PY{p}{,} \PY{n}{fc\PYZus{}w}\PY{p}{,} \PY{n}{fc\PYZus{}b} \PY{o}{=} \PY{n}{params}
+            \PY{n}{scores} \PY{o}{=} \PY{k+kc}{None}
+            \PY{c+c1}{\PYZsh{}print(\PYZdq{}ghv\PYZdq{})}
+            \PY{n}{conv1} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{functional}\PY{o}{.}\PY{n}{conv2d}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{conv\PYZus{}w1}\PY{p}{,} \PY{n}{bias} \PY{o}{=} \PY{n}{conv\PYZus{}b1}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print(conv1.size())}
+            \PY{n}{relu1} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{functional}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n}{conv1}\PY{p}{)}
+            \PY{n}{conv2} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{functional}\PY{o}{.}\PY{n}{conv2d}\PY{p}{(}\PY{n}{relu1}\PY{p}{,}\PY{n}{conv\PYZus{}w2}\PY{p}{,} \PY{n}{bias} \PY{o}{=} \PY{n}{conv\PYZus{}b2}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print(conv2.size())}
+            \PY{n}{relu2} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{functional}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n}{conv2}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print(relu2.size())}
+            \PY{n}{relu2} \PY{o}{=} \PY{n}{relu2}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{n}{relu2}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print(fc\PYZus{}w.size(), fc\PYZus{}b.size())}
+            \PY{c+c1}{\PYZsh{}print(relu2.size())}
+            \PY{n}{scores} \PY{o}{=} \PY{n}{relu2}\PY{o}{.}\PY{n}{mm}\PY{p}{(}\PY{n}{fc\PYZus{}w}\PY{p}{)} \PY{o}{+} \PY{n}{fc\PYZus{}b}
+            \PY{c+c1}{\PYZsh{}print(scores.size()) }
+            \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+            \PY{c+c1}{\PYZsh{} TODO: Implement the forward pass for the three\PYZhy{}layer ConvNet.                \PYZsh{}}
+            \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+            \PY{c+c1}{\PYZsh{}pass}
+            \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+            \PY{c+c1}{\PYZsh{}                                 END OF YOUR CODE                             \PYZsh{}}
+            \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+            \PY{k}{return} \PY{n}{scores}
+\end{Verbatim}
+
+
+    After defining the forward pass of the ConvNet above, run the following
+cell to test your implementation.
+
+When you run this function, scores should have shape (64, 10).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{three\PYZus{}layer\PYZus{}convnet\PYZus{}test}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{)}  \PY{c+c1}{\PYZsh{} minibatch size 64, image size [3, 32, 32]}
+        
+            \PY{n}{conv\PYZus{}w1} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{)}  \PY{c+c1}{\PYZsh{} [out\PYZus{}channel, in\PYZus{}channel, kernel\PYZus{}H, kernel\PYZus{}W]}
+            \PY{n}{conv\PYZus{}b1} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} out\PYZus{}channel}
+            \PY{n}{conv\PYZus{}w2} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{)}  \PY{c+c1}{\PYZsh{} [out\PYZus{}channel, in\PYZus{}channel, kernel\PYZus{}H, kernel\PYZus{}W]}
+            \PY{n}{conv\PYZus{}b2} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} out\PYZus{}channel}
+        
+            \PY{c+c1}{\PYZsh{} you must calculate the shape of the tensor after two conv layers, before the fully\PYZhy{}connected layer}
+            \PY{n}{fc\PYZus{}w} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{9} \PY{o}{*} \PY{l+m+mi}{32} \PY{o}{*} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+            \PY{n}{fc\PYZus{}b} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+        
+            \PY{n}{scores} \PY{o}{=} \PY{n}{three\PYZus{}layer\PYZus{}convnet}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{p}{[}\PY{n}{conv\PYZus{}w1}\PY{p}{,} \PY{n}{conv\PYZus{}b1}\PY{p}{,} \PY{n}{conv\PYZus{}w2}\PY{p}{,} \PY{n}{conv\PYZus{}b2}\PY{p}{,} \PY{n}{fc\PYZus{}w}\PY{p}{,} \PY{n}{fc\PYZus{}b}\PY{p}{]}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{scores}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} you should see [64, 10]}
+        \PY{n}{three\PYZus{}layer\PYZus{}convnet\PYZus{}test}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+torch.Size([64, 10])
+
+    \end{Verbatim}
+
+    \subsubsection{Barebones PyTorch:
+Initialization}\label{barebones-pytorch-initialization}
+
+Let's write a couple utility methods to initialize the weight matrices
+for our models.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{random\_weight(shape)} initializes a weight tensor with the
+  Kaiming normalization method.
+\item
+  \texttt{zero\_weight(shape)} initializes a weight tensor with all
+  zeros. Useful for instantiating bias parameters.
+\end{itemize}
+
+The \texttt{random\_weight} function uses the Kaiming normal
+initialization method, described in:
+
+He et al, \emph{Delving Deep into Rectifiers: Surpassing Human-Level
+Performance on ImageNet Classification}, ICCV 2015,
+https://arxiv.org/abs/1502.01852
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{random\PYZus{}weight}\PY{p}{(}\PY{n}{shape}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Create random Tensors for weights; setting requires\PYZus{}grad=True means that we}
+        \PY{l+s+sd}{    want to compute gradients for these Tensors during the backward pass.}
+        \PY{l+s+sd}{    We use Kaiming normalization: sqrt(2 / fan\PYZus{}in)}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{shape}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:}  \PY{c+c1}{\PYZsh{} FC weight}
+                \PY{n}{fan\PYZus{}in} \PY{o}{=} \PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{fan\PYZus{}in} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{prod}\PY{p}{(}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} conv weight [out\PYZus{}channel, in\PYZus{}channel, kH, kW]}
+            \PY{c+c1}{\PYZsh{} randn is standard normal distribution generator. }
+            \PY{n}{w} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{shape}\PY{p}{,} \PY{n}{device}\PY{o}{=}\PY{n}{device}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mf}{2.} \PY{o}{/} \PY{n}{fan\PYZus{}in}\PY{p}{)}
+            \PY{n}{w}\PY{o}{.}\PY{n}{requires\PYZus{}grad} \PY{o}{=} \PY{k+kc}{True}
+            \PY{k}{return} \PY{n}{w}
+        
+        \PY{k}{def} \PY{n+nf}{zero\PYZus{}weight}\PY{p}{(}\PY{n}{shape}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{p}{,} \PY{n}{device}\PY{o}{=}\PY{n}{device}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{,} \PY{n}{requires\PYZus{}grad}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} create a weight of shape [3 x 5]}
+        \PY{c+c1}{\PYZsh{} you should see the type `torch.cuda.FloatTensor` if you use GPU. }
+        \PY{c+c1}{\PYZsh{} Otherwise it should be `torch.FloatTensor`}
+        \PY{n}{random\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} tensor([[-1.3225,  0.2759, -0.7582, -1.3316, -0.2694],
+                [ 1.6914, -0.3535, -0.3304, -1.1268, -0.6172],
+                [-1.3351, -0.2301,  0.3727, -0.9523, -0.4685]],
+               device='cuda:0', requires\_grad=True)
+\end{Verbatim}
+            
+    \subsubsection{Barebones PyTorch: Check
+Accuracy}\label{barebones-pytorch-check-accuracy}
+
+When training the model we will use the following function to check the
+accuracy of our model on the training or validation sets.
+
+When checking accuracy we don't need to compute any gradients; as a
+result we don't need PyTorch to build a computational graph for us when
+we compute scores. To prevent a graph from being built we scope our
+computation under a \texttt{torch.no\_grad()} context manager.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{check\PYZus{}accuracy\PYZus{}part2}\PY{p}{(}\PY{n}{loader}\PY{p}{,} \PY{n}{model\PYZus{}fn}\PY{p}{,} \PY{n}{params}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Check the accuracy of a classification model.}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Inputs:}
+        \PY{l+s+sd}{    \PYZhy{} loader: A DataLoader for the data split we want to check}
+        \PY{l+s+sd}{    \PYZhy{} model\PYZus{}fn: A function that performs the forward pass of the model,}
+        \PY{l+s+sd}{      with the signature scores = model\PYZus{}fn(x, params)}
+        \PY{l+s+sd}{    \PYZhy{} params: List of PyTorch Tensors giving parameters of the model}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Returns: Nothing, but prints the accuracy of the model}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{split} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{n}{loader}\PY{o}{.}\PY{n}{dataset}\PY{o}{.}\PY{n}{train} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Checking accuracy on the }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ set}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{split}\PY{p}{)}
+            \PY{n}{num\PYZus{}correct}\PY{p}{,} \PY{n}{num\PYZus{}samples} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}
+            \PY{k}{with} \PY{n}{torch}\PY{o}{.}\PY{n}{no\PYZus{}grad}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o+ow}{in} \PY{n}{loader}\PY{p}{:}
+                    \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{o}{=}\PY{n}{device}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{)}  \PY{c+c1}{\PYZsh{} move to device, e.g. GPU}
+                    \PY{n}{y} \PY{o}{=} \PY{n}{y}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{o}{=}\PY{n}{device}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{torch}\PY{o}{.}\PY{n}{int64}\PY{p}{)}
+                    \PY{n}{scores} \PY{o}{=} \PY{n}{model\PYZus{}fn}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+                    \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{preds} \PY{o}{=} \PY{n}{scores}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                    \PY{n}{num\PYZus{}correct} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{preds} \PY{o}{==} \PY{n}{y}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+                    \PY{n}{num\PYZus{}samples} \PY{o}{+}\PY{o}{=} \PY{n}{preds}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                \PY{n}{acc} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{num\PYZus{}correct}\PY{p}{)} \PY{o}{/} \PY{n}{num\PYZus{}samples}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Got }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ / }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ correct (}\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{num\PYZus{}correct}\PY{p}{,} \PY{n}{num\PYZus{}samples}\PY{p}{,} \PY{l+m+mi}{100} \PY{o}{*} \PY{n}{acc}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{BareBones PyTorch: Training
+Loop}\label{barebones-pytorch-training-loop}
+
+We can now set up a basic training loop to train our network. We will
+train the model using stochastic gradient descent without momentum. We
+will use \texttt{torch.functional.cross\_entropy} to compute the loss;
+you can
+\href{http://pytorch.org/docs/stable/nn.html\#cross-entropy}{read about
+it here}.
+
+The training loop takes as input the neural network function, a list of
+initialized parameters (\texttt{{[}w1,\ w2{]}} in our example), and
+learning rate.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}part2}\PY{p}{(}\PY{n}{model\PYZus{}fn}\PY{p}{,} \PY{n}{params}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Train a model on CIFAR\PYZhy{}10.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Inputs:}
+         \PY{l+s+sd}{    \PYZhy{} model\PYZus{}fn: A Python function that performs the forward pass of the model.}
+         \PY{l+s+sd}{      It should have the signature scores = model\PYZus{}fn(x, params) where x is a}
+         \PY{l+s+sd}{      PyTorch Tensor of image data, params is a list of PyTorch Tensors giving}
+         \PY{l+s+sd}{      model weights, and scores is a PyTorch Tensor of shape (N, C) giving}
+         \PY{l+s+sd}{      scores for the elements in x.}
+         \PY{l+s+sd}{    \PYZhy{} params: List of PyTorch Tensors giving weights for the model}
+         \PY{l+s+sd}{    \PYZhy{} learning\PYZus{}rate: Python scalar giving the learning rate to use for SGD}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Returns: Nothing}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{for} \PY{n}{t}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{loader\PYZus{}train}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} Move the data to the proper device (GPU or CPU)}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{o}{=}\PY{n}{device}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{)}
+                 \PY{n}{y} \PY{o}{=} \PY{n}{y}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{o}{=}\PY{n}{device}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{torch}\PY{o}{.}\PY{n}{long}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Forward pass: compute scores and loss}
+                 \PY{n}{scores} \PY{o}{=} \PY{n}{model\PYZus{}fn}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+                 \PY{n}{loss} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{cross\PYZus{}entropy}\PY{p}{(}\PY{n}{scores}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Backward pass: PyTorch figures out which Tensors in the computational}
+                 \PY{c+c1}{\PYZsh{} graph has requires\PYZus{}grad=True and uses backpropagation to compute the}
+                 \PY{c+c1}{\PYZsh{} gradient of the loss with respect to these Tensors, and stores the}
+                 \PY{c+c1}{\PYZsh{} gradients in the .grad attribute of each Tensor.}
+                 \PY{n}{loss}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Update parameters. We don\PYZsq{}t want to backpropagate through the}
+                 \PY{c+c1}{\PYZsh{} parameter updates, so we scope the updates under a torch.no\PYZus{}grad()}
+                 \PY{c+c1}{\PYZsh{} context manager to prevent a computational graph from being built.}
+                 \PY{k}{with} \PY{n}{torch}\PY{o}{.}\PY{n}{no\PYZus{}grad}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{params}\PY{p}{:}
+                         \PY{n}{w} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{learning\PYZus{}rate} \PY{o}{*} \PY{n}{w}\PY{o}{.}\PY{n}{grad}
+         
+                         \PY{c+c1}{\PYZsh{} Manually zero the gradients after running the backward pass}
+                         \PY{n}{w}\PY{o}{.}\PY{n}{grad}\PY{o}{.}\PY{n}{zero\PYZus{}}\PY{p}{(}\PY{p}{)}
+         
+                 \PY{k}{if} \PY{n}{t} \PY{o}{\PYZpc{}} \PY{n}{print\PYZus{}every} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iteration }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, loss = }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{loss}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                     \PY{n}{check\PYZus{}accuracy\PYZus{}part2}\PY{p}{(}\PY{n}{loader\PYZus{}val}\PY{p}{,} \PY{n}{model\PYZus{}fn}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{BareBones PyTorch: Train a Two-Layer
+Network}\label{barebones-pytorch-train-a-two-layer-network}
+
+Now we are ready to run the training loop. We need to explicitly
+allocate tensors for the fully connected weights, \texttt{w1} and
+\texttt{w2}.
+
+Each minibatch of CIFAR has 64 examples, so the tensor shape is
+\texttt{{[}64,\ 3,\ 32,\ 32{]}}.
+
+After flattening, \texttt{x} shape should be
+\texttt{{[}64,\ 3\ *\ 32\ *\ 32{]}}. This will be the size of the first
+dimension of \texttt{w1}. The second dimension of \texttt{w1} is the
+hidden layer size, which will also be the first dimension of
+\texttt{w2}.
+
+Finally, the output of the network is a 10-dimensional vector that
+represents the probability distribution over 10 classes.
+
+You don't need to tune any hyperparameters but you should see accuracies
+above 40\% after training for one epoch.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{hidden\PYZus{}layer\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{4000}
+         \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}2}
+         
+         \PY{n}{w1} \PY{o}{=} \PY{n}{random\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{l+m+mi}{32} \PY{o}{*} \PY{l+m+mi}{32}\PY{p}{,} \PY{n}{hidden\PYZus{}layer\PYZus{}size}\PY{p}{)}\PY{p}{)}
+         \PY{n}{w2} \PY{o}{=} \PY{n}{random\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{n}{hidden\PYZus{}layer\PYZus{}size}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}part2}\PY{p}{(}\PY{n}{two\PYZus{}layer\PYZus{}fc}\PY{p}{,} \PY{p}{[}\PY{n}{w1}\PY{p}{,} \PY{n}{w2}\PY{p}{]}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteration 0, loss = 3.4243
+Checking accuracy on the val set
+Got 120 / 1000 correct (12.00\%)
+
+Iteration 100, loss = 2.4931
+Checking accuracy on the val set
+Got 352 / 1000 correct (35.20\%)
+
+Iteration 200, loss = 2.1775
+Checking accuracy on the val set
+Got 377 / 1000 correct (37.70\%)
+
+Iteration 300, loss = 1.9797
+Checking accuracy on the val set
+Got 391 / 1000 correct (39.10\%)
+
+Iteration 400, loss = 1.8160
+Checking accuracy on the val set
+Got 437 / 1000 correct (43.70\%)
+
+Iteration 500, loss = 1.8289
+Checking accuracy on the val set
+Got 427 / 1000 correct (42.70\%)
+
+Iteration 600, loss = 1.4695
+Checking accuracy on the val set
+Got 417 / 1000 correct (41.70\%)
+
+Iteration 700, loss = 1.7576
+Checking accuracy on the val set
+Got 444 / 1000 correct (44.40\%)
+
+
+    \end{Verbatim}
+
+    \subsubsection{BareBones PyTorch: Training a
+ConvNet}\label{barebones-pytorch-training-a-convnet}
+
+In the below you should use the functions defined above to train a
+three-layer convolutional network on CIFAR. The network should have the
+following architecture:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Convolutional layer (with bias) with 32 5x5 filters, with zero-padding
+  of 2
+\item
+  ReLU
+\item
+  Convolutional layer (with bias) with 16 3x3 filters, with zero-padding
+  of 1
+\item
+  ReLU
+\item
+  Fully-connected layer (with bias) to compute scores for 10 classes
+\end{enumerate}
+
+You should initialize your weight matrices using the
+\texttt{random\_weight} function defined above, and you should
+initialize your bias vectors using the \texttt{zero\_weight} function
+above.
+
+You don't need to tune any hyperparameters, but if everything works
+correctly you should achieve an accuracy above 42\% after one epoch.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{3e\PYZhy{}3}
+         
+         \PY{n}{channel\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{32}
+         \PY{n}{channel\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{16}
+         
+         \PY{n}{conv\PYZus{}w1} \PY{o}{=} \PY{n}{random\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{conv\PYZus{}b1} \PY{o}{=} \PY{n}{zero\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+         \PY{n}{conv\PYZus{}w2} \PY{o}{=} \PY{n}{random\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{conv\PYZus{}b2} \PY{o}{=} \PY{n}{zero\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fc\PYZus{}w} \PY{o}{=} \PY{n}{random\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{16384}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fc\PYZus{}b} \PY{o}{=} \PY{n}{zero\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} TODO: Initialize the parameters of a three\PYZhy{}layer ConvNet.                    \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}pass}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}                                 END OF YOUR CODE                             \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         
+         \PY{n}{params} \PY{o}{=} \PY{p}{[}\PY{n}{conv\PYZus{}w1}\PY{p}{,} \PY{n}{conv\PYZus{}b1}\PY{p}{,} \PY{n}{conv\PYZus{}w2}\PY{p}{,} \PY{n}{conv\PYZus{}b2}\PY{p}{,} \PY{n}{fc\PYZus{}w}\PY{p}{,} \PY{n}{fc\PYZus{}b}\PY{p}{]}
+         \PY{n}{train\PYZus{}part2}\PY{p}{(}\PY{n}{three\PYZus{}layer\PYZus{}convnet}\PY{p}{,} \PY{n}{params}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteration 0, loss = 3.2205
+Checking accuracy on the val set
+Got 116 / 1000 correct (11.60\%)
+
+Iteration 100, loss = 1.7007
+Checking accuracy on the val set
+Got 352 / 1000 correct (35.20\%)
+
+Iteration 200, loss = 1.8396
+Checking accuracy on the val set
+Got 361 / 1000 correct (36.10\%)
+
+Iteration 300, loss = 1.6029
+Checking accuracy on the val set
+Got 389 / 1000 correct (38.90\%)
+
+Iteration 400, loss = 1.6660
+Checking accuracy on the val set
+Got 413 / 1000 correct (41.30\%)
+
+Iteration 500, loss = 1.5129
+Checking accuracy on the val set
+Got 435 / 1000 correct (43.50\%)
+
+Iteration 600, loss = 1.5908
+Checking accuracy on the val set
+Got 472 / 1000 correct (47.20\%)
+
+Iteration 700, loss = 1.4748
+Checking accuracy on the val set
+Got 461 / 1000 correct (46.10\%)
+
+
+    \end{Verbatim}
+
+    \section{Part III. PyTorch Module
+API}\label{part-iii.-pytorch-module-api}
+
+Barebone PyTorch requires that we track all the parameter tensors by
+hand. This is fine for small networks with a few tensors, but it would
+be extremely inconvenient and error-prone to track tens or hundreds of
+tensors in larger networks.
+
+PyTorch provides the \texttt{nn.Module} API for you to define arbitrary
+network architectures, while tracking every learnable parameters for
+you. In Part II, we implemented SGD ourselves. PyTorch also provides the
+\texttt{torch.optim} package that implements all the common optimizers,
+such as RMSProp, Adagrad, and Adam. It even supports approximate
+second-order methods like L-BFGS! You can refer to the
+\href{http://pytorch.org/docs/master/optim.html}{doc} for the exact
+specifications of each optimizer.
+
+To use the Module API, follow the steps below:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Subclass \texttt{nn.Module}. Give your network class an intuitive name
+  like \texttt{TwoLayerFC}.
+\item
+  In the constructor \texttt{\_\_init\_\_()}, define all the layers you
+  need as class attributes. Layer objects like \texttt{nn.Linear} and
+  \texttt{nn.Conv2d} are themselves \texttt{nn.Module} subclasses and
+  contain learnable parameters, so that you don't have to instantiate
+  the raw tensors yourself. \texttt{nn.Module} will track these internal
+  parameters for you. Refer to the
+  \href{http://pytorch.org/docs/master/nn.html}{doc} to learn more about
+  the dozens of builtin layers. \textbf{Warning}: don't forget to call
+  the \texttt{super().\_\_init\_\_()} first!
+\item
+  In the \texttt{forward()} method, define the \emph{connectivity} of
+  your network. You should use the attributes defined in
+  \texttt{\_\_init\_\_} as function calls that take tensor as input and
+  output the "transformed" tensor. Do \emph{not} create any new layers
+  with learnable parameters in \texttt{forward()}! All of them must be
+  declared upfront in \texttt{\_\_init\_\_}.
+\end{enumerate}
+
+After you define your Module subclass, you can instantiate it as an
+object and call it just like the NN forward function in part II.
+
+\subsubsection{Module API: Two-Layer
+Network}\label{module-api-two-layer-network}
+
+Here is a concrete example of a 2-layer fully connected network:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{class} \PY{n+nc}{TwoLayerFC}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{input\PYZus{}size}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} assign layer objects to class attributes}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fc1} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n}{input\PYZus{}size}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} nn.init package contains convenient initialization methods}
+                 \PY{c+c1}{\PYZsh{} http://pytorch.org/docs/master/nn.html\PYZsh{}torch\PYZhy{}nn\PYZhy{}init }
+                 \PY{n}{nn}\PY{o}{.}\PY{n}{init}\PY{o}{.}\PY{n}{kaiming\PYZus{}normal\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fc1}\PY{o}{.}\PY{n}{weight}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fc2} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{)}
+                 \PY{n}{nn}\PY{o}{.}\PY{n}{init}\PY{o}{.}\PY{n}{kaiming\PYZus{}normal\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fc2}\PY{o}{.}\PY{n}{weight}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} forward always defines connectivity}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                 \PY{n}{scores} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fc2}\PY{p}{(}\PY{n}{F}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fc1}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{scores}
+         
+         \PY{k}{def} \PY{n+nf}{test\PYZus{}TwoLayerFC}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{input\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{50}
+             \PY{n}{x} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{n}{input\PYZus{}size}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{)}  \PY{c+c1}{\PYZsh{} minibatch size 64, feature dimension 50}
+             \PY{n}{model} \PY{o}{=} \PY{n}{TwoLayerFC}\PY{p}{(}\PY{n}{input\PYZus{}size}\PY{p}{,} \PY{l+m+mi}{42}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+             \PY{n}{scores} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{scores}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} you should see [64, 10]}
+         \PY{n}{test\PYZus{}TwoLayerFC}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+torch.Size([64, 10])
+
+    \end{Verbatim}
+
+    \subsubsection{Module API: Three-Layer
+ConvNet}\label{module-api-three-layer-convnet}
+
+It's your turn to implement a 3-layer ConvNet followed by a fully
+connected layer. The network architecture should be the same as in Part
+II:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Convolutional layer with \texttt{channel\_1} 5x5 filters with
+  zero-padding of 2
+\item
+  ReLU
+\item
+  Convolutional layer with \texttt{channel\_2} 3x3 filters with
+  zero-padding of 1
+\item
+  ReLU
+\item
+  Fully-connected layer to \texttt{num\_classes} classes
+\end{enumerate}
+
+You should initialize the weight matrices of the model using the Kaiming
+normal initialization method.
+
+\textbf{HINT}: http://pytorch.org/docs/stable/nn.html\#conv2d
+
+After you implement the three-layer ConvNet, the
+\texttt{test\_ThreeLayerConvNet} function will run your implementation;
+it should print \texttt{(64,\ 10)} for the shape of the output scores.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{class} \PY{n+nc}{ThreeLayerConvNet}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{in\PYZus{}channel}\PY{p}{,} \PY{n}{channel\PYZus{}1}\PY{p}{,} \PY{n}{channel\PYZus{}2}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv1} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Conv2d}\PY{p}{(}\PY{n}{in\PYZus{}channel}\PY{p}{,}\PY{n}{channel\PYZus{}1}\PY{p}{,}\PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{padding}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{bias} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+                 \PY{n}{nn}\PY{o}{.}\PY{n}{init}\PY{o}{.}\PY{n}{kaiming\PYZus{}normal\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv1}\PY{o}{.}\PY{n}{weight}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}print(self.conv1.weight.size())}
+                 \PY{n}{nn}\PY{o}{.}\PY{n}{init}\PY{o}{.}\PY{n}{constant\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv1}\PY{o}{.}\PY{n}{bias}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv2} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Conv2d}\PY{p}{(}\PY{n}{channel\PYZus{}1}\PY{p}{,}\PY{n}{channel\PYZus{}2}\PY{p}{,}\PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{padding}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{bias} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+                 \PY{n}{nn}\PY{o}{.}\PY{n}{init}\PY{o}{.}\PY{n}{kaiming\PYZus{}normal\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv2}\PY{o}{.}\PY{n}{weight}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}print(self.conv2.weight.size())}
+                 \PY{n}{nn}\PY{o}{.}\PY{n}{init}\PY{o}{.}\PY{n}{constant\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv2}\PY{o}{.}\PY{n}{bias}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fc1} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{l+m+mi}{8192}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{)}
+                 \PY{n}{nn}\PY{o}{.}\PY{n}{init}\PY{o}{.}\PY{n}{kaiming\PYZus{}normal\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fc1}\PY{o}{.}\PY{n}{weight}\PY{p}{)}
+                 \PY{n}{nn}\PY{o}{.}\PY{n}{init}\PY{o}{.}\PY{n}{constant\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fc1}\PY{o}{.}\PY{n}{bias}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+                 \PY{c+c1}{\PYZsh{} TODO: Set up the layers you need for a three\PYZhy{}layer ConvNet with the  \PYZsh{}}
+                 \PY{c+c1}{\PYZsh{} architecture defined above.                                          \PYZsh{}}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+                 \PY{c+c1}{\PYZsh{}pass}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+                 \PY{c+c1}{\PYZsh{}                          END OF YOUR CODE                            \PYZsh{}       }
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         
+             \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{scores} \PY{o}{=} \PY{k+kc}{None}
+                 \PY{c+c1}{\PYZsh{}x = flatten(x)}
+                 \PY{n}{scores} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fc1}\PY{p}{(}\PY{n}{flatten}\PY{p}{(}\PY{n}{F}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv2}\PY{p}{(}\PY{n}{F}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv1}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}temp1 = self.conv1(x)}
+                 \PY{c+c1}{\PYZsh{}temp2 = F.relu(temp1)}
+                 \PY{c+c1}{\PYZsh{}temp3 = self.conv2(temp2)}
+                 \PY{c+c1}{\PYZsh{}temp4 = F.relu(temp3)}
+                 \PY{c+c1}{\PYZsh{}temp5 = flatten(temp4)}
+                 \PY{c+c1}{\PYZsh{}scores = self.fc1(temp5)}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+                 \PY{c+c1}{\PYZsh{} TODO: Implement the forward function for a 3\PYZhy{}layer ConvNet. you      \PYZsh{}}
+                 \PY{c+c1}{\PYZsh{} should use the layers you defined in \PYZus{}\PYZus{}init\PYZus{}\PYZus{} and specify the        \PYZsh{}}
+                 \PY{c+c1}{\PYZsh{} connectivity of those layers in forward()                            \PYZsh{}}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+                 \PY{c+c1}{\PYZsh{}pass}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+                 \PY{c+c1}{\PYZsh{}                             END OF YOUR CODE                         \PYZsh{}}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+                 \PY{k}{return} \PY{n}{scores}
+         
+         
+         \PY{k}{def} \PY{n+nf}{test\PYZus{}ThreeLayerConvNet}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{)}  \PY{c+c1}{\PYZsh{} minibatch size 64, image size [3, 32, 32]}
+             \PY{n}{model} \PY{o}{=} \PY{n}{ThreeLayerConvNet}\PY{p}{(}\PY{n}{in\PYZus{}channel}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{channel\PYZus{}1}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{channel\PYZus{}2}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+             \PY{n}{scores} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{scores}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} you should see [64, 10]}
+         \PY{n}{test\PYZus{}ThreeLayerConvNet}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+torch.Size([64, 10])
+
+    \end{Verbatim}
+
+    \subsubsection{Module API: Check
+Accuracy}\label{module-api-check-accuracy}
+
+Given the validation or test set, we can check the classification
+accuracy of a neural network.
+
+This version is slightly different from the one in part II. You don't
+manually pass in the parameters anymore.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{def} \PY{n+nf}{check\PYZus{}accuracy\PYZus{}part34}\PY{p}{(}\PY{n}{loader}\PY{p}{,} \PY{n}{model}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{loader}\PY{o}{.}\PY{n}{dataset}\PY{o}{.}\PY{n}{train}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Checking accuracy on validation set}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Checking accuracy on test set}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}   
+             \PY{n}{num\PYZus{}correct} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{num\PYZus{}samples} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{model}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} set model to evaluation mode}
+             \PY{k}{with} \PY{n}{torch}\PY{o}{.}\PY{n}{no\PYZus{}grad}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o+ow}{in} \PY{n}{loader}\PY{p}{:}
+                     \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{o}{=}\PY{n}{device}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{)}  \PY{c+c1}{\PYZsh{} move to device, e.g. GPU}
+                     \PY{n}{y} \PY{o}{=} \PY{n}{y}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{o}{=}\PY{n}{device}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{torch}\PY{o}{.}\PY{n}{long}\PY{p}{)}
+                     \PY{n}{scores} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                     \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{preds} \PY{o}{=} \PY{n}{scores}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{n}{num\PYZus{}correct} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{preds} \PY{o}{==} \PY{n}{y}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{num\PYZus{}samples} \PY{o}{+}\PY{o}{=} \PY{n}{preds}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{acc} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{num\PYZus{}correct}\PY{p}{)} \PY{o}{/} \PY{n}{num\PYZus{}samples}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Got }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ / }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ correct (}\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{num\PYZus{}correct}\PY{p}{,} \PY{n}{num\PYZus{}samples}\PY{p}{,} \PY{l+m+mi}{100} \PY{o}{*} \PY{n}{acc}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Module API: Training
+Loop}\label{module-api-training-loop}
+
+We also use a slightly different training loop. Rather than updating the
+values of the weights ourselves, we use an Optimizer object from the
+\texttt{torch.optim} package, which abstract the notion of an
+optimization algorithm and provides implementations of most of the
+algorithms commonly used to optimize neural networks.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}part34}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{optimizer}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Train a model on CIFAR\PYZhy{}10 using the PyTorch Module API.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Inputs:}
+         \PY{l+s+sd}{    \PYZhy{} model: A PyTorch Module giving the model to train.}
+         \PY{l+s+sd}{    \PYZhy{} optimizer: An Optimizer object we will use to train the model}
+         \PY{l+s+sd}{    \PYZhy{} epochs: (Optional) A Python integer giving the number of epochs to train for}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Returns: Nothing, but prints model accuracies during training.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{model} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{o}{=}\PY{n}{device}\PY{p}{)}  \PY{c+c1}{\PYZsh{} move the model parameters to CPU/GPU}
+             \PY{k}{for} \PY{n}{e} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{epochs}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{t}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{loader\PYZus{}train}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{model}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} put model to training mode}
+                     \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{o}{=}\PY{n}{device}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{dtype}\PY{p}{)}  \PY{c+c1}{\PYZsh{} move to device, e.g. GPU}
+                     \PY{n}{y} \PY{o}{=} \PY{n}{y}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{o}{=}\PY{n}{device}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{torch}\PY{o}{.}\PY{n}{long}\PY{p}{)}
+         
+                     \PY{n}{scores} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                     \PY{n}{loss} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{cross\PYZus{}entropy}\PY{p}{(}\PY{n}{scores}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+                     \PY{c+c1}{\PYZsh{} Zero out all of the gradients for the variables which the optimizer}
+                     \PY{c+c1}{\PYZsh{} will update.}
+                     \PY{n}{optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+         
+                     \PY{c+c1}{\PYZsh{} This is the backwards pass: compute the gradient of the loss with}
+                     \PY{c+c1}{\PYZsh{} respect to each  parameter of the model.}
+                     \PY{n}{loss}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{p}{)}
+         
+                     \PY{c+c1}{\PYZsh{} Actually update the parameters of the model using the gradients}
+                     \PY{c+c1}{\PYZsh{} computed by the backwards pass.}
+                     \PY{n}{optimizer}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{p}{)}
+         
+                     \PY{k}{if} \PY{n}{t} \PY{o}{\PYZpc{}} \PY{n}{print\PYZus{}every} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iteration }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, loss = }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{loss}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                         \PY{n}{check\PYZus{}accuracy\PYZus{}part34}\PY{p}{(}\PY{n}{loader\PYZus{}val}\PY{p}{,} \PY{n}{model}\PY{p}{)}
+                         \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Module API: Train a Two-Layer
+Network}\label{module-api-train-a-two-layer-network}
+
+Now we are ready to run the training loop. In contrast to part II, we
+don't explicitly allocate parameter tensors anymore.
+
+Simply pass the input size, hidden layer size, and number of classes
+(i.e. output size) to the constructor of \texttt{TwoLayerFC}.
+
+You also need to define an optimizer that tracks all the learnable
+parameters inside \texttt{TwoLayerFC}.
+
+You don't need to tune any hyperparameters, but you should see model
+accuracies above 40\% after training for one epoch.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{hidden\PYZus{}layer\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{4000}
+         \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}2}
+         \PY{n}{model} \PY{o}{=} \PY{n}{TwoLayerFC}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{l+m+mi}{32} \PY{o}{*} \PY{l+m+mi}{32}\PY{p}{,} \PY{n}{hidden\PYZus{}layer\PYZus{}size}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{optimizer} \PY{o}{=} \PY{n}{optim}\PY{o}{.}\PY{n}{SGD}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{n}{learning\PYZus{}rate}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}part34}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{optimizer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteration 0, loss = 4.0080
+Checking accuracy on validation set
+Got 145 / 1000 correct (14.50)
+
+Iteration 100, loss = 2.3776
+Checking accuracy on validation set
+Got 323 / 1000 correct (32.30)
+
+Iteration 200, loss = 2.0749
+Checking accuracy on validation set
+Got 324 / 1000 correct (32.40)
+
+Iteration 300, loss = 1.9609
+Checking accuracy on validation set
+Got 387 / 1000 correct (38.70)
+
+Iteration 400, loss = 1.7903
+Checking accuracy on validation set
+Got 406 / 1000 correct (40.60)
+
+Iteration 500, loss = 1.8708
+Checking accuracy on validation set
+Got 381 / 1000 correct (38.10)
+
+Iteration 600, loss = 2.1863
+Checking accuracy on validation set
+Got 412 / 1000 correct (41.20)
+
+Iteration 700, loss = 1.7718
+Checking accuracy on validation set
+Got 421 / 1000 correct (42.10)
+
+
+    \end{Verbatim}
+
+    \subsubsection{Module API: Train a Three-Layer
+ConvNet}\label{module-api-train-a-three-layer-convnet}
+
+You should now use the Module API to train a three-layer ConvNet on
+CIFAR. This should look very similar to training the two-layer network!
+You don't need to tune any hyperparameters, but you should achieve above
+above 45\% after training for one epoch.
+
+You should train the model using stochastic gradient descent without
+momentum.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{7e\PYZhy{}3}
+         \PY{n}{channel\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{32}
+         \PY{n}{channel\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{16}
+         
+         \PY{n}{model} \PY{o}{=} \PY{n}{ThreeLayerConvNet}\PY{p}{(}\PY{n}{in\PYZus{}channel}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{channel\PYZus{}1}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{channel\PYZus{}2}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{optimizer} \PY{o}{=} \PY{n}{optim}\PY{o}{.}\PY{n}{SGD}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{n}{learning\PYZus{}rate}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} TODO: Instantiate your ThreeLayerConvNet model and a corresponding optimizer \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}pass}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}                                 END OF YOUR CODE                             }
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         
+         \PY{n}{train\PYZus{}part34}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{optimizer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteration 0, loss = 2.8344
+Checking accuracy on validation set
+Got 137 / 1000 correct (13.70)
+
+Iteration 100, loss = 2.0502
+Checking accuracy on validation set
+Got 336 / 1000 correct (33.60)
+
+Iteration 200, loss = 1.8566
+Checking accuracy on validation set
+Got 382 / 1000 correct (38.20)
+
+Iteration 300, loss = 1.9358
+Checking accuracy on validation set
+Got 423 / 1000 correct (42.30)
+
+Iteration 400, loss = 1.6845
+Checking accuracy on validation set
+Got 430 / 1000 correct (43.00)
+
+Iteration 500, loss = 1.6297
+Checking accuracy on validation set
+Got 448 / 1000 correct (44.80)
+
+Iteration 600, loss = 1.7455
+Checking accuracy on validation set
+Got 456 / 1000 correct (45.60)
+
+Iteration 700, loss = 1.7646
+Checking accuracy on validation set
+Got 473 / 1000 correct (47.30)
+
+
+    \end{Verbatim}
+
+    \section{Part IV. PyTorch Sequential
+API}\label{part-iv.-pytorch-sequential-api}
+
+Part III introduced the PyTorch Module API, which allows you to define
+arbitrary learnable layers and their connectivity.
+
+For simple models like a stack of feed forward layers, you still need to
+go through 3 steps: subclass \texttt{nn.Module}, assign layers to class
+attributes in \texttt{\_\_init\_\_}, and call each layer one by one in
+\texttt{forward()}. Is there a more convenient way?
+
+Fortunately, PyTorch provides a container Module called
+\texttt{nn.Sequential}, which merges the above steps into one. It is not
+as flexible as \texttt{nn.Module}, because you cannot specify more
+complex topology than a feed-forward stack, but it's good enough for
+many use cases.
+
+\subsubsection{Sequential API: Two-Layer
+Network}\label{sequential-api-two-layer-network}
+
+Let's see how to rewrite our two-layer fully connected network example
+with \texttt{nn.Sequential}, and train it using the training loop
+defined above.
+
+Again, you don't need to tune any hyperparameters here, but you shoud
+achieve above 40\% accuracy after one epoch of training.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} We need to wrap `flatten` function in a module in order to stack it}
+         \PY{c+c1}{\PYZsh{} in nn.Sequential}
+         \PY{k}{class} \PY{n+nc}{Flatten}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         
+         \PY{n}{hidden\PYZus{}layer\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{4000}
+         \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}2}
+         
+         \PY{n}{model} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Sequential}\PY{p}{(}
+             \PY{n}{Flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{l+m+mi}{32} \PY{o}{*} \PY{l+m+mi}{32}\PY{p}{,} \PY{n}{hidden\PYZus{}layer\PYZus{}size}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{ReLU}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n}{hidden\PYZus{}layer\PYZus{}size}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}
+         \PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} you can use Nesterov momentum in optim.SGD}
+         \PY{n}{optimizer} \PY{o}{=} \PY{n}{optim}\PY{o}{.}\PY{n}{SGD}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{n}{learning\PYZus{}rate}\PY{p}{,}
+                              \PY{n}{momentum}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{nesterov}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}part34}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{optimizer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteration 0, loss = 2.3009
+Checking accuracy on validation set
+Got 160 / 1000 correct (16.00)
+
+Iteration 100, loss = 2.2429
+Checking accuracy on validation set
+Got 389 / 1000 correct (38.90)
+
+Iteration 200, loss = 1.7965
+Checking accuracy on validation set
+Got 408 / 1000 correct (40.80)
+
+Iteration 300, loss = 2.0386
+Checking accuracy on validation set
+Got 409 / 1000 correct (40.90)
+
+Iteration 400, loss = 1.8699
+Checking accuracy on validation set
+Got 427 / 1000 correct (42.70)
+
+Iteration 500, loss = 1.9580
+Checking accuracy on validation set
+Got 417 / 1000 correct (41.70)
+
+Iteration 600, loss = 1.9104
+Checking accuracy on validation set
+Got 413 / 1000 correct (41.30)
+
+Iteration 700, loss = 1.4889
+Checking accuracy on validation set
+Got 424 / 1000 correct (42.40)
+
+
+    \end{Verbatim}
+
+    \subsubsection{Sequential API: Three-Layer
+ConvNet}\label{sequential-api-three-layer-convnet}
+
+Here you should use \texttt{nn.Sequential} to define and train a
+three-layer ConvNet with the same architecture we used in Part III:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Convolutional layer (with bias) with 32 5x5 filters, with zero-padding
+  of 2
+\item
+  ReLU
+\item
+  Convolutional layer (with bias) with 16 3x3 filters, with zero-padding
+  of 1
+\item
+  ReLU
+\item
+  Fully-connected layer (with bias) to compute scores for 10 classes
+\end{enumerate}
+
+You should initialize your weight matrices using the
+\texttt{random\_weight} function defined above, and you should
+initialize your bias vectors using the \texttt{zero\_weight} function
+above.
+
+You should optimize your model using stochastic gradient descent with
+Nesterov momentum 0.9.
+
+Again, you don't need to tune any hyperparameters but you should see
+accuracy above 55\% after one epoch of training.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k}{class} \PY{n+nc}{Flatten}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         
+         \PY{n}{channel\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{32}
+         \PY{n}{channel\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{16}
+         \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}2}
+         \PY{n}{conv\PYZus{}w1} \PY{o}{=} \PY{n}{random\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{conv\PYZus{}b1} \PY{o}{=} \PY{n}{zero\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+         \PY{n}{conv\PYZus{}w2} \PY{o}{=} \PY{n}{random\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{conv\PYZus{}b2} \PY{o}{=} \PY{n}{zero\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fc\PYZus{}w} \PY{o}{=} \PY{n}{random\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{16384}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fc\PYZus{}b} \PY{o}{=} \PY{n}{zero\PYZus{}weight}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}model = None}
+         \PY{c+c1}{\PYZsh{}optimizer = None}
+         \PY{n}{model} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Sequential}\PY{p}{(}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{Conv2d}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{channel\PYZus{}1}\PY{p}{,}\PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{padding}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{bias} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{ReLU}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{Conv2d}\PY{p}{(}\PY{n}{channel\PYZus{}1}\PY{p}{,}\PY{n}{channel\PYZus{}2}\PY{p}{,}\PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{padding}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{bias} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{ReLU}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{l+m+mi}{16}\PY{o}{*}\PY{l+m+mi}{32}\PY{o}{*}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{p}{)}
+         \PY{n}{optimizer} \PY{o}{=} \PY{n}{optim}\PY{o}{.}\PY{n}{SGD}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{n}{learning\PYZus{}rate}\PY{p}{,}
+                              \PY{n}{momentum}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{nesterov}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} TODO: Rewrite the 2\PYZhy{}layer ConvNet with bias from Part III with the           \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} Sequential API.                                                              \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}pass}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}                                 END OF YOUR CODE                             }
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         
+         \PY{n}{train\PYZus{}part34}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{optimizer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteration 0, loss = 2.3107
+Checking accuracy on validation set
+Got 114 / 1000 correct (11.40)
+
+Iteration 100, loss = 1.6379
+Checking accuracy on validation set
+Got 447 / 1000 correct (44.70)
+
+Iteration 200, loss = 1.5094
+Checking accuracy on validation set
+Got 452 / 1000 correct (45.20)
+
+Iteration 300, loss = 1.3648
+Checking accuracy on validation set
+Got 507 / 1000 correct (50.70)
+
+Iteration 400, loss = 1.3141
+Checking accuracy on validation set
+Got 542 / 1000 correct (54.20)
+
+Iteration 500, loss = 1.2315
+Checking accuracy on validation set
+Got 537 / 1000 correct (53.70)
+
+Iteration 600, loss = 1.5270
+Checking accuracy on validation set
+Got 585 / 1000 correct (58.50)
+
+Iteration 700, loss = 1.4487
+Checking accuracy on validation set
+Got 595 / 1000 correct (59.50)
+
+
+    \end{Verbatim}
+
+    \section{Part V. CIFAR-10 open-ended
+challenge}\label{part-v.-cifar-10-open-ended-challenge}
+
+In this section, you can experiment with whatever ConvNet architecture
+you'd like on CIFAR-10.
+
+Now it's your job to experiment with architectures, hyperparameters,
+loss functions, and optimizers to train a model that achieves \textbf{at
+least 70\%} accuracy on the CIFAR-10 \textbf{validation} set within 10
+epochs. You can use the check\_accuracy and train functions from above.
+You can use either \texttt{nn.Module} or \texttt{nn.Sequential} API.
+
+Describe what you did at the end of this notebook.
+
+Here are the official API documentation for each component. One note:
+what we call in the class "spatial batch norm" is called "BatchNorm2D"
+in PyTorch.
+
+\begin{itemize}
+\tightlist
+\item
+  Layers in torch.nn package: http://pytorch.org/docs/stable/nn.html
+\item
+  Activations:
+  http://pytorch.org/docs/stable/nn.html\#non-linear-activations
+\item
+  Loss functions: http://pytorch.org/docs/stable/nn.html\#loss-functions
+\item
+  Optimizers: http://pytorch.org/docs/stable/optim.html
+\end{itemize}
+
+\subsubsection{Things you might try:}\label{things-you-might-try}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Filter size}: Above we used 5x5; would smaller filters be more
+  efficient?
+\item
+  \textbf{Number of filters}: Above we used 32 filters. Do more or fewer
+  do better?
+\item
+  \textbf{Pooling vs Strided Convolution}: Do you use max pooling or
+  just stride convolutions?
+\item
+  \textbf{Batch normalization}: Try adding spatial batch normalization
+  after convolution layers and vanilla batch normalization after affine
+  layers. Do your networks train faster?
+\item
+  \textbf{Network architecture}: The network above has two layers of
+  trainable parameters. Can you do better with a deep network? Good
+  architectures to try include:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    {[}conv-relu-pool{]}xN -\textgreater{} {[}affine{]}xM
+    -\textgreater{} {[}softmax or SVM{]}
+  \item
+    {[}conv-relu-conv-relu-pool{]}xN -\textgreater{} {[}affine{]}xM
+    -\textgreater{} {[}softmax or SVM{]}
+  \item
+    {[}batchnorm-relu-conv{]}xN -\textgreater{} {[}affine{]}xM
+    -\textgreater{} {[}softmax or SVM{]}
+  \end{itemize}
+\item
+  \textbf{Global Average Pooling}: Instead of flattening and then having
+  multiple affine layers, perform convolutions until your image gets
+  small (7x7 or so) and then perform an average pooling operation to get
+  to a 1x1 image picture (1, 1 , Filter\#), which is then reshaped into
+  a (Filter\#) vector. This is used in
+  \href{https://arxiv.org/abs/1512.00567}{Google's Inception Network}
+  (See Table 1 for their architecture).
+\item
+  \textbf{Regularization}: Add l2 weight regularization, or perhaps use
+  Dropout.
+\end{itemize}
+
+\subsubsection{Tips for training}\label{tips-for-training}
+
+For each network architecture that you try, you should tune the learning
+rate and other hyperparameters. When doing this there are a couple
+important things to keep in mind:
+
+\begin{itemize}
+\tightlist
+\item
+  If the parameters are working well, you should see improvement within
+  a few hundred iterations
+\item
+  Remember the coarse-to-fine approach for hyperparameter tuning: start
+  by testing a large range of hyperparameters for just a few training
+  iterations to find the combinations of parameters that are working at
+  all.
+\item
+  Once you have found some sets of parameters that seem to work, search
+  more finely around these parameters. You may need to train for more
+  epochs.
+\item
+  You should use the validation set for hyperparameter search, and save
+  your test set for evaluating your architecture on the best parameters
+  as selected by the validation set.
+\end{itemize}
+
+\subsubsection{Going above and beyond}\label{going-above-and-beyond}
+
+If you are feeling adventurous there are many other features you can
+implement to try and improve your performance. You are \textbf{not
+required} to implement any of these, but don't miss the fun if you have
+time!
+
+\begin{itemize}
+\tightlist
+\item
+  Alternative optimizers: you can try Adam, Adagrad, RMSprop, etc.
+\item
+  Alternative activation functions such as leaky ReLU, parametric ReLU,
+  ELU, or MaxOut.
+\item
+  Model ensembles
+\item
+  Data augmentation
+\item
+  New Architectures
+\item
+  \href{https://arxiv.org/abs/1512.03385}{ResNets} where the input from
+  the previous layer is added to the output.
+\item
+  \href{https://arxiv.org/abs/1608.06993}{DenseNets} where inputs into
+  previous layers are concatenated together.
+\item
+  \href{https://chatbotslife.com/resnets-highwaynets-and-densenets-oh-my-9bb15918ee32}{This
+  blog has an in-depth overview}
+\end{itemize}
+
+\subsubsection{Have fun and happy
+training!}\label{have-fun-and-happy-training}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} TODO:                                                                        \PYZsh{}         }
+         \PY{c+c1}{\PYZsh{} Experiment with any architectures, optimizers, and hyperparameters.          \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} Achieve AT LEAST 70\PYZpc{} accuracy on the *validation set* within 10 epochs.      \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}                                                                              \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} Note that you can use the check\PYZus{}accuracy function to evaluate on either      \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} the test set or the validation set, by passing either loader\PYZus{}test or         \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} loader\PYZus{}val as the second argument to check\PYZus{}accuracy. You should not touch    \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} the test set until you have finished your architecture and  hyperparameter   \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} tuning, and only run the test set once at the end to report a final value.   \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{k}{class} \PY{n+nc}{Flatten}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         
+         \PY{n}{channel\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{32}
+         \PY{n}{channel\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{16}
+         \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}2}
+         \PY{n}{model} \PY{o}{=} \PY{k+kc}{None}
+         \PY{n}{optimizer} \PY{o}{=} \PY{k+kc}{None}
+         \PY{n}{model} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Sequential}\PY{p}{(}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{Conv2d}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{channel\PYZus{}1}\PY{p}{,}\PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{padding}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{bias} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{BatchNorm2d}\PY{p}{(}\PY{n}{channel\PYZus{}1}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{ReLU}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{MaxPool2d}\PY{p}{(}\PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{stride}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{Conv2d}\PY{p}{(}\PY{n}{channel\PYZus{}1}\PY{p}{,}\PY{n}{channel\PYZus{}2}\PY{p}{,}\PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{padding}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{bias} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{BatchNorm2d}\PY{p}{(}\PY{n}{channel\PYZus{}2}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{ReLU}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{MaxPool2d}\PY{p}{(}\PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{stride}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{l+m+mi}{1024}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{p}{)}
+         \PY{n}{optimizer} \PY{o}{=} \PY{n}{optim}\PY{o}{.}\PY{n}{SGD}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{n}{learning\PYZus{}rate}\PY{p}{,}
+                              \PY{n}{momentum}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{nesterov}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}pass}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}                                 END OF YOUR CODE                             }
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         
+         \PY{c+c1}{\PYZsh{} You should get at least 70\PYZpc{} accuracy}
+         \PY{n}{train\PYZus{}part34}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{optimizer}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteration 0, loss = 2.3298
+Checking accuracy on validation set
+Got 114 / 1000 correct (11.40)
+
+Iteration 100, loss = 1.5018
+Checking accuracy on validation set
+Got 474 / 1000 correct (47.40)
+
+Iteration 200, loss = 1.3593
+Checking accuracy on validation set
+Got 524 / 1000 correct (52.40)
+
+Iteration 300, loss = 1.3210
+Checking accuracy on validation set
+Got 524 / 1000 correct (52.40)
+
+Iteration 400, loss = 1.1869
+Checking accuracy on validation set
+Got 555 / 1000 correct (55.50)
+
+Iteration 500, loss = 1.3984
+Checking accuracy on validation set
+Got 590 / 1000 correct (59.00)
+
+Iteration 600, loss = 1.4545
+Checking accuracy on validation set
+Got 601 / 1000 correct (60.10)
+
+Iteration 700, loss = 1.2841
+Checking accuracy on validation set
+Got 609 / 1000 correct (60.90)
+
+Iteration 0, loss = 1.1130
+Checking accuracy on validation set
+Got 571 / 1000 correct (57.10)
+
+Iteration 100, loss = 1.1790
+Checking accuracy on validation set
+Got 611 / 1000 correct (61.10)
+
+Iteration 200, loss = 1.2599
+Checking accuracy on validation set
+Got 643 / 1000 correct (64.30)
+
+Iteration 300, loss = 1.3283
+Checking accuracy on validation set
+Got 622 / 1000 correct (62.20)
+
+Iteration 400, loss = 1.1375
+Checking accuracy on validation set
+Got 648 / 1000 correct (64.80)
+
+Iteration 500, loss = 0.9709
+Checking accuracy on validation set
+Got 629 / 1000 correct (62.90)
+
+Iteration 600, loss = 0.9669
+Checking accuracy on validation set
+Got 669 / 1000 correct (66.90)
+
+Iteration 700, loss = 1.1649
+Checking accuracy on validation set
+Got 647 / 1000 correct (64.70)
+
+Iteration 0, loss = 0.9730
+Checking accuracy on validation set
+Got 661 / 1000 correct (66.10)
+
+Iteration 100, loss = 0.8216
+Checking accuracy on validation set
+Got 660 / 1000 correct (66.00)
+
+Iteration 200, loss = 0.7887
+Checking accuracy on validation set
+Got 663 / 1000 correct (66.30)
+
+Iteration 300, loss = 0.9943
+Checking accuracy on validation set
+Got 655 / 1000 correct (65.50)
+
+Iteration 400, loss = 0.9172
+Checking accuracy on validation set
+Got 645 / 1000 correct (64.50)
+
+Iteration 500, loss = 1.1919
+Checking accuracy on validation set
+Got 644 / 1000 correct (64.40)
+
+Iteration 600, loss = 0.8848
+Checking accuracy on validation set
+Got 653 / 1000 correct (65.30)
+
+Iteration 700, loss = 0.8751
+Checking accuracy on validation set
+Got 682 / 1000 correct (68.20)
+
+Iteration 0, loss = 0.8717
+Checking accuracy on validation set
+Got 660 / 1000 correct (66.00)
+
+Iteration 100, loss = 0.8378
+Checking accuracy on validation set
+Got 662 / 1000 correct (66.20)
+
+Iteration 200, loss = 0.8529
+Checking accuracy on validation set
+Got 678 / 1000 correct (67.80)
+
+Iteration 300, loss = 0.9457
+Checking accuracy on validation set
+Got 665 / 1000 correct (66.50)
+
+Iteration 400, loss = 1.1218
+Checking accuracy on validation set
+Got 673 / 1000 correct (67.30)
+
+Iteration 500, loss = 0.9152
+Checking accuracy on validation set
+Got 656 / 1000 correct (65.60)
+
+Iteration 600, loss = 0.9113
+Checking accuracy on validation set
+Got 662 / 1000 correct (66.20)
+
+Iteration 700, loss = 0.8630
+Checking accuracy on validation set
+Got 659 / 1000 correct (65.90)
+
+Iteration 0, loss = 0.9146
+Checking accuracy on validation set
+Got 682 / 1000 correct (68.20)
+
+Iteration 100, loss = 0.7193
+Checking accuracy on validation set
+Got 675 / 1000 correct (67.50)
+
+Iteration 200, loss = 0.9304
+Checking accuracy on validation set
+Got 651 / 1000 correct (65.10)
+
+Iteration 300, loss = 1.1112
+Checking accuracy on validation set
+Got 671 / 1000 correct (67.10)
+
+Iteration 400, loss = 1.2076
+Checking accuracy on validation set
+Got 683 / 1000 correct (68.30)
+
+Iteration 500, loss = 1.0024
+Checking accuracy on validation set
+Got 677 / 1000 correct (67.70)
+
+Iteration 600, loss = 0.9896
+Checking accuracy on validation set
+Got 683 / 1000 correct (68.30)
+
+Iteration 700, loss = 0.8044
+Checking accuracy on validation set
+Got 692 / 1000 correct (69.20)
+
+Iteration 0, loss = 0.6620
+Checking accuracy on validation set
+Got 686 / 1000 correct (68.60)
+
+Iteration 100, loss = 0.8143
+Checking accuracy on validation set
+Got 690 / 1000 correct (69.00)
+
+Iteration 200, loss = 0.8275
+Checking accuracy on validation set
+Got 672 / 1000 correct (67.20)
+
+Iteration 300, loss = 0.9129
+Checking accuracy on validation set
+Got 693 / 1000 correct (69.30)
+
+Iteration 400, loss = 0.7231
+Checking accuracy on validation set
+Got 689 / 1000 correct (68.90)
+
+Iteration 500, loss = 0.9285
+Checking accuracy on validation set
+Got 691 / 1000 correct (69.10)
+
+Iteration 600, loss = 0.9250
+Checking accuracy on validation set
+Got 686 / 1000 correct (68.60)
+
+Iteration 700, loss = 0.7595
+Checking accuracy on validation set
+Got 693 / 1000 correct (69.30)
+
+Iteration 0, loss = 0.8869
+Checking accuracy on validation set
+Got 674 / 1000 correct (67.40)
+
+Iteration 100, loss = 0.7702
+Checking accuracy on validation set
+Got 688 / 1000 correct (68.80)
+
+Iteration 200, loss = 0.9923
+Checking accuracy on validation set
+Got 703 / 1000 correct (70.30)
+
+Iteration 300, loss = 0.8843
+Checking accuracy on validation set
+Got 678 / 1000 correct (67.80)
+
+Iteration 400, loss = 0.7875
+Checking accuracy on validation set
+Got 693 / 1000 correct (69.30)
+
+Iteration 500, loss = 0.7235
+Checking accuracy on validation set
+Got 710 / 1000 correct (71.00)
+
+Iteration 600, loss = 0.7430
+Checking accuracy on validation set
+Got 694 / 1000 correct (69.40)
+
+Iteration 700, loss = 0.5964
+Checking accuracy on validation set
+Got 695 / 1000 correct (69.50)
+
+Iteration 0, loss = 0.9445
+Checking accuracy on validation set
+Got 681 / 1000 correct (68.10)
+
+Iteration 100, loss = 0.8378
+Checking accuracy on validation set
+Got 692 / 1000 correct (69.20)
+
+Iteration 200, loss = 0.6404
+Checking accuracy on validation set
+Got 691 / 1000 correct (69.10)
+
+Iteration 300, loss = 0.8101
+Checking accuracy on validation set
+Got 705 / 1000 correct (70.50)
+
+Iteration 400, loss = 0.6625
+Checking accuracy on validation set
+Got 706 / 1000 correct (70.60)
+
+Iteration 500, loss = 0.8146
+Checking accuracy on validation set
+Got 689 / 1000 correct (68.90)
+
+Iteration 600, loss = 0.7336
+Checking accuracy on validation set
+Got 685 / 1000 correct (68.50)
+
+Iteration 700, loss = 0.8911
+Checking accuracy on validation set
+Got 711 / 1000 correct (71.10)
+
+Iteration 0, loss = 0.5290
+Checking accuracy on validation set
+Got 715 / 1000 correct (71.50)
+
+Iteration 100, loss = 0.5849
+Checking accuracy on validation set
+Got 708 / 1000 correct (70.80)
+
+Iteration 200, loss = 0.7950
+Checking accuracy on validation set
+Got 678 / 1000 correct (67.80)
+
+Iteration 300, loss = 0.8192
+Checking accuracy on validation set
+Got 707 / 1000 correct (70.70)
+
+Iteration 400, loss = 1.0339
+Checking accuracy on validation set
+Got 698 / 1000 correct (69.80)
+
+Iteration 500, loss = 0.8278
+Checking accuracy on validation set
+Got 694 / 1000 correct (69.40)
+
+Iteration 600, loss = 0.6742
+Checking accuracy on validation set
+Got 703 / 1000 correct (70.30)
+
+Iteration 700, loss = 0.7885
+Checking accuracy on validation set
+Got 693 / 1000 correct (69.30)
+
+Iteration 0, loss = 0.7820
+Checking accuracy on validation set
+Got 704 / 1000 correct (70.40)
+
+Iteration 100, loss = 0.6487
+Checking accuracy on validation set
+Got 703 / 1000 correct (70.30)
+
+Iteration 200, loss = 0.7439
+Checking accuracy on validation set
+Got 702 / 1000 correct (70.20)
+
+Iteration 300, loss = 0.6245
+Checking accuracy on validation set
+Got 700 / 1000 correct (70.00)
+
+Iteration 400, loss = 0.7733
+Checking accuracy on validation set
+Got 693 / 1000 correct (69.30)
+
+Iteration 500, loss = 0.7698
+Checking accuracy on validation set
+Got 696 / 1000 correct (69.60)
+
+Iteration 600, loss = 0.6030
+Checking accuracy on validation set
+Got 695 / 1000 correct (69.50)
+
+Iteration 700, loss = 0.7099
+Checking accuracy on validation set
+Got 701 / 1000 correct (70.10)
+
+
+    \end{Verbatim}
+
+    \subsection{Describe what you did}\label{describe-what-you-did}
+
+In the cell below you should write an explanation of what you did, any
+additional features that you implemented, and/or any graphs that you
+made in the process of training and evaluating your network.
+
+    The initial network was 3 layer conv net with relu activation and sgd
+optimization. To this network , I also added Maxpooling with a kernel
+size 2 and batch normalization
+
+    \subsection{Test set -\/- run this only
+once}\label{test-set----run-this-only-once}
+
+Now that we've gotten a result we're happy with, we test our final model
+on the test set (which you should store in best\_model). Think about how
+this compares to your validation set accuracy.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{best\PYZus{}model} \PY{o}{=} \PY{n}{model}
+         \PY{n}{check\PYZus{}accuracy\PYZus{}part34}\PY{p}{(}\PY{n}{loader\PYZus{}test}\PY{p}{,} \PY{n}{best\PYZus{}model}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Checking accuracy on test set
+Got 7006 / 10000 correct (70.06)
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
